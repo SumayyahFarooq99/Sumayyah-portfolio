@@ -9,12 +9,12 @@ import madRooster from "../images/projects/mad-rooster.png";
 import zillnoorain from "../images/projects/zillnoorain.png";
 
 // ===== Theme Images =====
-import homevio from "../images/themes/homevio.png";
 import hacienda from "../images/themes/hacienda.png";
 import chatnex from "../images/themes/chatnex.png";
 import voicera from "../images/themes/voicera.png";
 import claudia from "../images/themes/claudia.png";
 import airevo from "../images/themes/airevo.png";
+import homevio from "../images/themes/homevio.png";
 import foodzey from "../images/themes/foodzey.png";
 
 export const liveProjects = [
@@ -107,19 +107,9 @@ export const liveProjects = [
 ];
 
 export const themes = [
-  {
-    id: 1,
-    title: "Homevio",
-    image: homevio,
-    category: "ThemeForest Template",
-    description:
-      "Architecture & Interior HTML Template with elegant modern design.",
-    live:
-      "https://preview.themeforest.net/item/homevio-architecture-interior-html-template/full_screen_preview/52923255",
-  },
 
   {
-    id: 2,
+    id: 1,
     title: "Hacienda",
     image: hacienda,
     category: "ThemeForest Template",
@@ -130,7 +120,7 @@ export const themes = [
   },
 
   {
-    id: 3,
+    id: 2,
     title: "Chatnex",
     image: chatnex,
     category: "ThemeForest Template",
@@ -141,7 +131,7 @@ export const themes = [
   },
 
   {
-    id: 4,
+    id: 3,
     title: "Voicera",
     image: voicera,
     category: "ThemeForest Template",
@@ -152,7 +142,7 @@ export const themes = [
   },
 
   {
-    id: 5,
+    id: 4,
     title: "Claudia",
     image: claudia,
     category: "ThemeForest Template",
@@ -163,7 +153,7 @@ export const themes = [
   },
 
   {
-    id: 6,
+    id: 5,
     title: "Airevo",
     image: airevo,
     category: "ThemeForest Template",
@@ -172,7 +162,16 @@ export const themes = [
     live:
       "https://preview.themeforest.net/item/airevo-heating-ventilation-html-template/full_screen_preview/61009212",
   },
-
+ {
+    id: 6,
+    title: "Homevio",
+    image: homevio,
+    category: "ThemeForest Template",
+    description:
+      "Architecture & Interior HTML Template with elegant modern design.",
+    live:
+      "https://preview.themeforest.net/item/homevio-architecture-interior-html-template/full_screen_preview/52923255",
+  },
   {
     id: 7,
     title: "Foodzey",
