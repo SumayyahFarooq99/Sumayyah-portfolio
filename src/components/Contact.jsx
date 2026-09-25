@@ -54,7 +54,7 @@ function Contact() {
     }
 
     if (
-      !/^[A-Z0-9.\\\_%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$/i.test(formData.email)
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
     ) {
       setErrors({ email: true });
       document.querySelector('[name="email"]')?.focus();
