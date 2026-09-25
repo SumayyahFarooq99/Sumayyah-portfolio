@@ -53,13 +53,13 @@ function Contact() {
       return;
     }
 
-    if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
-    ) {
-      setErrors({ email: true });
-      document.querySelector('[name="email"]')?.focus();
-      return;
-    }
+   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if (!emailRegex.test(formData.email.trim())) {
+  setErrors({ email: true });
+  document.querySelector('[name="email"]')?.focus();
+  return;
+}
 
     try {
       await emailjs.send(
@@ -268,6 +268,8 @@ function Contact() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Your Name"
+                autoComplete="name"
+
                 className={`w-full bg-slate-900 rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-sm sm:text-base outline-none border-2 transition-all duration-300 ${
                   errors.name
                     ? "border-red-500"
@@ -281,6 +283,7 @@ function Contact() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Your Email"
+                autoComplete="email"
                 className={`w-full bg-slate-900 rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-sm sm:text-base outline-none border-2 transition-all duration-300 ${
                   errors.email
                     ? "border-red-500"
