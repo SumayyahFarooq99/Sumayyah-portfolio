@@ -1,7 +1,5 @@
 import emailjs from "@emailjs/browser";
-
 import { useState } from "react";
-
 import { motion } from "framer-motion";
 
 import { fadeUp, fadeLeft, fadeRight } from "../utils/animations";
@@ -25,6 +23,7 @@ function Contact() {
   });
 
   const [errors, setErrors] = useState({});
+  const [messageStatus, setMessageStatus] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -36,30 +35,36 @@ function Contact() {
       ...errors,
       [e.target.name]: "",
     });
+
+    // Clear success/error message when user starts typing again
+    setMessageStatus("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Name validation
     if (!formData.name.trim()) {
       setErrors({ name: true });
       document.querySelector('[name="name"]')?.focus();
       return;
     }
 
+    // Email required validation
     if (!formData.email.trim()) {
       setErrors({ email: true });
       document.querySelector('[name="email"]')?.focus();
       return;
     }
 
-   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-if (!emailRegex.test(formData.email.trim())) {
-  setErrors({ email: true });
-  document.querySelector('[name="email"]')?.focus();
-  return;
-}
+    if (!emailRegex.test(formData.email.trim())) {
+      setErrors({ email: true });
+      document.querySelector('[name="email"]')?.focus();
+      return;
+    }
 
     try {
       await emailjs.send(
@@ -74,8 +79,10 @@ if (!emailRegex.test(formData.email.trim())) {
         "Za3sI-Nq7G574dAPw"
       );
 
-      alert("✅ Message sent successfully!");
+      // Show success message
+      setMessageStatus("success");
 
+      // Clear form
       setFormData({
         name: "",
         email: "",
@@ -86,7 +93,9 @@ if (!emailRegex.test(formData.email.trim())) {
       setErrors({});
     } catch (error) {
       console.error(error);
-      alert("❌ Failed to send message. Please try again.");
+
+      // Show error message
+      setMessageStatus("error");
     }
   };
 
@@ -98,7 +107,6 @@ if (!emailRegex.test(formData.email.trim())) {
       <div className="max-w-7xl mx-auto">
 
         {/* Heading */}
-
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -120,7 +128,6 @@ if (!emailRegex.test(formData.email.trim())) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-8">
 
           {/* LEFT */}
-
           <motion.div
             variants={fadeLeft}
             initial="hidden"
@@ -141,11 +148,9 @@ if (!emailRegex.test(formData.email.trim())) {
               </p>
 
               {/* Contact Details */}
-
               <div className="max-[767px]:w-full max-[767px]:max-w-sm max-[767px]:mx-auto text-left">
 
                 {/* Email */}
-
                 <div className="flex items-center gap-3 sm:gap-4 md:gap-5 mb-5 sm:mb-6 md:mb-6 lg:mb-7">
 
                   <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-13 md:h-13 shrink-0 rounded-xl bg-purple-600 flex items-center justify-center text-base sm:text-lg md:text-xl">
@@ -168,7 +173,6 @@ if (!emailRegex.test(formData.email.trim())) {
                 </div>
 
                 {/* Phone */}
-
                 <div className="flex items-center gap-3 sm:gap-4 md:gap-5 mb-5 sm:mb-6 md:mb-6 lg:mb-7">
 
                   <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-13 md:h-13 shrink-0 rounded-xl bg-purple-600 flex items-center justify-center text-base sm:text-lg md:text-xl">
@@ -191,7 +195,6 @@ if (!emailRegex.test(formData.email.trim())) {
                 </div>
 
                 {/* Location */}
-
                 <div className="flex items-center gap-3 sm:gap-4 md:gap-5">
 
                   <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-13 md:h-13 shrink-0 rounded-xl bg-purple-600 flex items-center justify-center text-base sm:text-lg md:text-xl">
@@ -215,7 +218,6 @@ if (!emailRegex.test(formData.email.trim())) {
             </div>
 
             {/* Social */}
-
             <div className="flex gap-3 sm:gap-4 md:gap-5 mt-8 sm:mt-8 md:mt-8 lg:mt-12 max-[767px]:justify-center">
 
               <a
@@ -250,7 +252,6 @@ if (!emailRegex.test(formData.email.trim())) {
           </motion.div>
 
           {/* RIGHT */}
-
           <motion.form
             variants={fadeRight}
             initial="hidden"
@@ -262,6 +263,7 @@ if (!emailRegex.test(formData.email.trim())) {
 
             <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 mb-4 sm:mb-5">
 
+              {/* Name */}
               <input
                 type="text"
                 name="name"
@@ -269,7 +271,6 @@ if (!emailRegex.test(formData.email.trim())) {
                 onChange={handleChange}
                 placeholder="Your Name"
                 autoComplete="name"
-
                 className={`w-full bg-slate-900 rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-sm sm:text-base outline-none border-2 transition-all duration-300 ${
                   errors.name
                     ? "border-red-500"
@@ -277,6 +278,7 @@ if (!emailRegex.test(formData.email.trim())) {
                 }`}
               />
 
+              {/* Email */}
               <input
                 type="email"
                 name="email"
@@ -293,6 +295,7 @@ if (!emailRegex.test(formData.email.trim())) {
 
             </div>
 
+            {/* Subject */}
             <input
               type="text"
               name="subject"
@@ -302,6 +305,7 @@ if (!emailRegex.test(formData.email.trim())) {
               className="w-full bg-slate-900 rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-sm sm:text-base outline-none border-2 border-slate-700 focus:border-purple-500 transition-all duration-300 mb-4 sm:mb-5"
             />
 
+            {/* Message */}
             <textarea
               rows="7"
               name="message"
@@ -311,6 +315,7 @@ if (!emailRegex.test(formData.email.trim())) {
               className="w-full h-32 sm:h-36 md:h-36 lg:h-42 bg-slate-900 rounded-xl px-4 sm:px-5 py-3 sm:py-4 text-sm sm:text-base outline-none border-2 border-slate-700 focus:border-purple-500 transition-all duration-300 mb-6 sm:mb-8 resize-none"
             />
 
+            {/* Submit Button */}
             <button
               type="submit"
               className="bg-purple-600 hover:bg-purple-700 transition-all duration-300 px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 rounded-xl font-semibold text-sm sm:text-base flex items-center gap-2 sm:gap-3 cursor-pointer hover:shadow-[0_10px_25px_rgba(168,85,247,0.35)] max-[767px]:mx-auto"
@@ -318,6 +323,20 @@ if (!emailRegex.test(formData.email.trim())) {
               <FaPaperPlane />
               Send Message
             </button>
+
+            {/* Success Message */}
+            {messageStatus === "success" && (
+              <div className="mt-4 w-full rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-3 text-center text-sm sm:text-base text-green-400">
+                ✅ Message sent successfully!
+              </div>
+            )}
+
+            {/* Error Message */}
+            {messageStatus === "error" && (
+              <div className="mt-4 w-full rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-center text-sm sm:text-base text-red-400">
+                ❌ Failed to send message. Please try again.
+              </div>
+            )}
 
           </motion.form>
 
